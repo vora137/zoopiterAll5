@@ -220,7 +220,6 @@ public class PetInfoController {
     PetInfo petInfo = new PetInfo();
     petInfo.setPetNum(petNum);
 
-
     petInfo.setPetImg(petUpdateForm.getPetImg());
     petInfo.setPetType(petUpdateForm.getPetType());
     petInfo.setPetBirth(petUpdateForm.getPetBirth());
@@ -239,7 +238,7 @@ public class PetInfoController {
       //넣기
       List<UploadFile> imageFiles = uploadFileSVC.convert(petUpdateForm.getImageFiles(),AttachFileType.F0103);
       petInfoSVC.updateInfo(petNum, petInfo, imageFiles);
-    }else {
+    } else {
       List<UploadFile> imageFiles = uploadFileSVC.convert(petUpdateForm.getImageFiles(),AttachFileType.F0103);
       petInfoSVC.updateInfo(petNum, petInfo, imageFiles);
     }
@@ -293,12 +292,34 @@ public class PetInfoController {
     modifyForm.setUserId(member.getUserId());
     modifyForm.setUserNick(member.getUserNick());
 
-    // modifyForm.setUserPhoto(member.getUserPhoto());
+//    // 파일첨부
+//    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0104, userId);
+//    if (imagedFiles.size() > 0) {
+//      // 새로운 사진 파일이 있을 경우, 기존 사진 파일 삭제
+//      uploadFileSVC.deleteFileByUploadFildId(imagedFiles.get(0).getUploadfileId());
+//    }
+//
+//    // 새로운 이미지 파일 업로드
+//    List<UploadFile> imageFiles = uploadFileSVC.convert(modifyForm.getImageFiles(), AttachFileType.F0104);
+//    memberSVC.update(userId, member, imageFiles);
+
+    // 파일첨부
+    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0104, Long.parseLong(userId));
+    if (imagedFiles.size() > 0) {
+      // 새로운 사진 파일이 있을 경우, 기존 사진 파일 삭제
+      uploadFileSVC.deleteFileByUploadFildId(imagedFiles.get(0).getUploadfileId());
+      //넣기
+      List<UploadFile> imageFiles = uploadFileSVC.convert(modifyForm.getImageFiles(), AttachFileType.F0104);
+      memberSVC.update(userId, member, imageFiles);
+    } else {
+      List<UploadFile> imageFiles = uploadFileSVC.convert(modifyForm.getImageFiles(), AttachFileType.F0104);
+      memberSVC.update(userId, member, imageFiles);
+    }
+
     model.addAttribute("modifyForm",modifyForm);
     model.addAttribute("userEmail",member.getUserEmail());
 
     return "mypage/mypage_main_modify";
-
   }
 
   //rest로 이동

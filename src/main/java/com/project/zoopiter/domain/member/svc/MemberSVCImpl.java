@@ -1,6 +1,8 @@
 package com.project.zoopiter.domain.member.svc;
 
+import com.project.zoopiter.domain.common.file.svc.UploadFileSVC;
 import com.project.zoopiter.domain.entity.Member;
+import com.project.zoopiter.domain.entity.UploadFile;
 import com.project.zoopiter.domain.member.dao.MemberDAO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class MemberSVCImpl implements MemberSVC {
 
   private final MemberDAO memberDAO;
+  private final UploadFileSVC uploadFileSVC;
 
   /**
    * 가입
@@ -45,6 +48,22 @@ public class MemberSVCImpl implements MemberSVC {
   @Override
   public void update(String userId, Member member) {
     memberDAO.update(userId,member);
+  }
+
+  /** 회원정보수정 (업로드 파일)
+   * @param userId
+   * @param member
+   * @param uploadFiles
+   * @return
+   */
+  @Override
+  public int update(String userId, Member member, List<UploadFile> uploadFiles) {
+    int cntOfUpdate = memberDAO.update(userId,member);
+    if(uploadFiles.size()>0){
+      uploadFiles.stream().forEach(uploadFile -> uploadFile.setRid(Long.valueOf(userId)));
+      uploadFileSVC.addFiles(uploadFiles);
+    }
+    return cntOfUpdate;
   }
 
   /**

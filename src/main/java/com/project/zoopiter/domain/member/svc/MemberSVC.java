@@ -1,6 +1,7 @@
 package com.project.zoopiter.domain.member.svc;
 
 import com.project.zoopiter.domain.entity.Member;
+import com.project.zoopiter.domain.entity.UploadFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +41,15 @@ public interface MemberSVC {
    * @param member 회원정보
    */
   void update(String userId, Member member);
+
+  /**
+   * 회원정보수정 + 업로드파일
+   * @param userId
+   * @param member
+   * @param uploadFiles
+   * @return
+   */
+  int update(String userId, Member member , List<UploadFile>uploadFiles);
 
   /**
    * 조회 by email

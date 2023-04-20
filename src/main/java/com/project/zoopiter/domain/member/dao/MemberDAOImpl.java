@@ -79,7 +79,7 @@ public class MemberDAOImpl implements MemberDAO {
    * @param member 회원정보
    */
   @Override
-  public void update(String userId, Member member) {
+  public int update(String userId, Member member) {
     StringBuffer sql = new StringBuffer();
     sql.append("update member set user_email = :userEmail, user_pw = :userPw, user_nick = :userNick ,user_update = systimestamp where user_id = :userId ");
 
@@ -89,8 +89,7 @@ public class MemberDAOImpl implements MemberDAO {
         .addValue("userNick",member.getUserNick())
         .addValue("userId",userId);
 
-    template.update(sql.toString(),param);
-
+    return template.update(sql.toString(),param);
   }
 
   /**

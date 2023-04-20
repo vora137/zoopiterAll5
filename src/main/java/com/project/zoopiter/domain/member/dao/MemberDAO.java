@@ -24,7 +24,7 @@ public interface MemberDAO {
    * @param userId 아이디
    * @param member 회원정보
    */
-  void update(String userId, Member member);
+  int update(String userId, Member member);
 
   /**
    * 회원정보수정
