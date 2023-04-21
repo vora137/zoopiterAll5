@@ -14,7 +14,7 @@
     <div class="upload-area">
       <img th:src="@{|/attach/view/${petInfo.uploadfileId}|}" alt=""
            style="max-width: 100%; max-height: 100%; border-radius: 50%;" th:if="${petInfo.uploadfileId != null}" />
-      <img th:src="../static/img/img_profile1.png" alt=""
+      <img th:src="@{'/img/img_profile1.png'}" alt=""
            style="max-width: 100%; max-height: 100%; border-radius: 50%;" th:unless="${petInfo.uploadfileId != null}" />
     </div>
     <div class="upload-area2" id="">
