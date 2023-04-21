@@ -15,5 +15,5 @@ public class ModifyForm {
   private List<MultipartFile> imageFiles; // 이미지파일
 //  @NotBlank
 //  private String userEmail;
-//  private byte[] userPhoto;
+  private Long userPhoto;
 }

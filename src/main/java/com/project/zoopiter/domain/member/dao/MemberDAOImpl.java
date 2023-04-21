@@ -34,12 +34,14 @@ public class MemberDAOImpl implements MemberDAO {
     sql.append(" user_id, ");
     sql.append(" user_pw, ");
     sql.append(" user_nick, ");
-    sql.append(" user_email ");
+    sql.append(" user_email, ");
+    sql.append(" user_photo ");
     sql.append(") values( ");
     sql.append(" :userId, ");
     sql.append(" :userPw, ");
     sql.append(" :userNick, ");
-    sql.append(" :userEmail ");
+    sql.append(" :userEmail, ");
+    sql.append(" member_user_photo_seq.nextval ");
     sql.append(" ) ");
 
     SqlParameterSource param = new BeanPropertySqlParameterSource(member);
@@ -57,13 +59,15 @@ public class MemberDAOImpl implements MemberDAO {
     sql.append(" user_pw, ");
     sql.append(" user_nick, ");
     sql.append(" user_email, ");
-    sql.append(" gubun ");
+    sql.append(" gubun, ");
+    sql.append(" user_photo ");
     sql.append(") values( ");
     sql.append(" :userId, ");
     sql.append(" :userPw, ");
     sql.append(" :userNick, ");
     sql.append(" :userEmail, ");
-    sql.append(" 'H0101' ");
+    sql.append(" 'H0101', ");
+    sql.append(" member_user_photo_seq.nextval ");
     sql.append(" ) ");
 
     SqlParameterSource param = new BeanPropertySqlParameterSource(member);
@@ -81,13 +85,16 @@ public class MemberDAOImpl implements MemberDAO {
   @Override
   public int update(String userId, Member member) {
     StringBuffer sql = new StringBuffer();
-    sql.append("update member set user_email = :userEmail, user_pw = :userPw, user_nick = :userNick ,user_update = systimestamp where user_id = :userId ");
+    sql.append("update member set user_email = :userEmail, user_pw = :userPw, user_nick = :userNick ,user_update = systimestamp, " );
+    sql.append("  user_photo = MEMBER_USER_PHOTO_seq.nextval ");
+    sql.append("  where user_id = :userId ");
 
     SqlParameterSource param = new MapSqlParameterSource()
         .addValue("userEmail",member.getUserEmail())
         .addValue("userPw",member.getUserPw())
         .addValue("userNick",member.getUserNick())
-        .addValue("userId",userId);
+        .addValue("userId",userId)
+        .addValue("userPhoto",member.getUserPhoto());
 
     return template.update(sql.toString(),param);
   }

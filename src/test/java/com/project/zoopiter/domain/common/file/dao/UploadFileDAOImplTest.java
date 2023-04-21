@@ -20,8 +20,8 @@ class UploadFileDAOImplTest {
   @DisplayName("단건첨부")
   void addFile() {
     UploadFile uploadFile = new UploadFile();
-    uploadFile.setCode("F0101");
-    uploadFile.setRid(10L);  // 참조번호
+    uploadFile.setCode("F0104");
+    uploadFile.setRid(1L);  // 참조번호
     uploadFile.setStore_filename(UUID.randomUUID()+".png");
     uploadFile.setUpload_filename("배경이미지.png");
     uploadFile.setFsize("100");

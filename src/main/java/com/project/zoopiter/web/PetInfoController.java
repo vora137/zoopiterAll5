@@ -20,6 +20,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -289,35 +290,18 @@ public class PetInfoController {
     Member member = optionalMember.get();
 
     ModifyForm modifyForm = new ModifyForm();
-    modifyForm.setUserId(member.getUserId());
-    modifyForm.setUserNick(member.getUserNick());
-
-//    // 파일첨부
-//    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0104, userId);
-//    if (imagedFiles.size() > 0) {
-//      // 새로운 사진 파일이 있을 경우, 기존 사진 파일 삭제
-//      uploadFileSVC.deleteFileByUploadFildId(imagedFiles.get(0).getUploadfileId());
-//    }
-//
-//    // 새로운 이미지 파일 업로드
-//    List<UploadFile> imageFiles = uploadFileSVC.convert(modifyForm.getImageFiles(), AttachFileType.F0104);
-//    memberSVC.update(userId, member, imageFiles);
-
-    // 파일첨부
-    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0104, Long.parseLong(userId));
-    if (imagedFiles.size() > 0) {
-      // 새로운 사진 파일이 있을 경우, 기존 사진 파일 삭제
-      uploadFileSVC.deleteFileByUploadFildId(imagedFiles.get(0).getUploadfileId());
-      //넣기
-      List<UploadFile> imageFiles = uploadFileSVC.convert(modifyForm.getImageFiles(), AttachFileType.F0104);
-      memberSVC.update(userId, member, imageFiles);
-    } else {
-      List<UploadFile> imageFiles = uploadFileSVC.convert(modifyForm.getImageFiles(), AttachFileType.F0104);
-      memberSVC.update(userId, member, imageFiles);
-    }
-
+    BeanUtils.copyProperties(member,modifyForm);
     model.addAttribute("modifyForm",modifyForm);
-    model.addAttribute("userEmail",member.getUserEmail());
+//    modifyForm.setUserId(member.getUserId());
+//    modifyForm.setUserNick(member.getUserNick());
+
+    Long PhotoNum = member.getUserPhoto();
+
+    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0104, PhotoNum);
+    if(imagedFiles.size()>0){
+      log.info("ImagedFiles={}",imagedFiles);
+      model.addAttribute("imagedFiles",imagedFiles);
+    }
 
     return "mypage/mypage_main_modify";
   }
