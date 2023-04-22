@@ -363,7 +363,6 @@ public class PetInfoController {
       log.info("ImagedFiles={}", imagedFiles);
       model.addAttribute("imagedFiles", imagedFiles);
     }
-
     return "mypage/mypage_main";
   }
 

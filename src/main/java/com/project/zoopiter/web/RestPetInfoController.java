@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -122,7 +123,7 @@ public class RestPetInfoController {
   }
 
   @PostMapping("/memberedit")
-  public void memberedit(@RequestParam("imageFiles") List<MultipartFile> image, HttpServletRequest request){
+  public void memberedit(@RequestParam("file") MultipartFile file, HttpServletRequest request){
     log.info("실행중1~~~~~~~~~~~~~~~");
     String userId = null;
     HttpSession session = request.getSession(false);
@@ -133,7 +134,8 @@ public class RestPetInfoController {
     Optional<Member> optionalMember = memberSVC.findById(userId);
 
     Member member = optionalMember.get();
-
+    List<MultipartFile> image = new ArrayList<MultipartFile>();
+    image.add(file);
     Long PhotoNum = member.getUserPhoto();
     log.info("실행중2~~~~~~~~~~~~~~~");
 
