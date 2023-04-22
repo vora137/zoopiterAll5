@@ -13,7 +13,6 @@ public class ModifyForm {
   private String userNick;
 
   private List<MultipartFile> imageFiles; // 이미지파일
-//  @NotBlank
-//  private String userEmail;
+  private String userEmail;
   private Long userPhoto;
 }

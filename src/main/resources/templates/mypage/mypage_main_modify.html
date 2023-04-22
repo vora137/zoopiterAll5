@@ -83,15 +83,14 @@
             <div class="list">사진</div>
             <div class="list-frm">
               <div class="myprofile-list-image">
-                <!-- <img src="" alt="" /> -->
                 <div class="contents">
                   <div class="upload-box">
                     <div id="dropFile" class="drag-file">
-                      <img
-                          src="../img/img_profile1.png"
-                          alt=""
-                          class="image"
-                      />
+<!--                      <img-->
+<!--                          src="../img/img_profile1.png"-->
+<!--                          alt=""-->
+<!--                          class="image"-->
+<!--                      />-->
 
                       <img src="" alt="미리보기 이미지" class="preview"/>
 
@@ -143,7 +142,7 @@
           </div>
           <div class="list-frm">
             <div class="list">이메일</div>
-            <div class="my-info" th:text="${userEmail}" ></div>
+            <div class="my-info" th:text="${modifyForm.userEmail}" ></div>
           </div>
 
           <div class="list-frm">
