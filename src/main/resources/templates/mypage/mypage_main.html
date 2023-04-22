@@ -83,13 +83,15 @@
             <div class="list">사진</div>
             <div class="list-frm">
               <div class="myprofile-list-image" >
-                <img th:src="@{|/attach/F0104/${file.rid}|}" alt="" style="max-width: 100%; max-height: 100%; border-radius: 50%;"
-                     th:if="${imagedFiles != null }" />
-
+                <div th:each="file : ${imagedFiles}" class="view__img">
+                  <th:block th:if="${#strings.contains(file.ftype,'image')}">
+                    <img th:src="@{|/attach/view/${file.uploadfileId}|}"
+                         style="width: 200px; height: 200px; border-radius: 50%;"/>
+                    <!--     th:if="${imagedFiles != null }" -->
+                  </th:block>
+                </div>
                 <img th:src="@{'/img/img_profile1.png'}" alt="" style="max-width: 100%; max-height: 100%; border-radius: 50%;"
                      th:unless="${imagedFiles != null }" />
-
-
 <!--                <li>-->
 <!--                  <div class="myprofile-list-text">-->
 <!--                    회원님을 알수있는 사진을 등록해주세요 <br/>-->

@@ -73,6 +73,15 @@ public class PetInfoController {
     detailForm.setUserId(userId);
     model.addAttribute("DetailForm", detailForm);
 
+    Long photoNum = member.get().getUserPhoto();
+
+    // 프로필사진 정보
+    List<UploadFile> imagedFiles = uploadFileSVC.findFilesByCodeWithRid(AttachFileType.F0104, photoNum);
+    if(imagedFiles.size()>0){
+      log.info("imagedFiles={}",imagedFiles);
+      model.addAttribute("imagedFiles",imagedFiles);
+    }
+
     return "mypage/mypage_main";
   }
 
