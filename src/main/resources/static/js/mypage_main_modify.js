@@ -11,11 +11,10 @@ $(function () {
 
 const inputImg = document.getElementById('chooseFile');
 
-
     const img_h = () => {
         const file = inputImg.files[0];
         const formData = new FormData();
-        formData.append('imageFiles', file);
+        formData.append('file', file);
 
         fetch(`/api/mypage/memberedit`, {
             method: 'POST',
