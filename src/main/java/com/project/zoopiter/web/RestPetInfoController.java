@@ -124,7 +124,6 @@ public class RestPetInfoController {
 
   @PostMapping("/memberedit")
   public void memberedit(@RequestParam("file") MultipartFile file, HttpServletRequest request){
-    log.info("실행중1~~~~~~~~~~~~~~~");
     String userId = null;
     HttpSession session = request.getSession(false);
     if(session != null) {

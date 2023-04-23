@@ -76,8 +76,17 @@ function DropFile(dropAreaId, fileListId) {
     handleFiles,
   };
 }
-
 const dropFile = new DropFile('drop-file', 'files');
+
+deleteImageBtn.addEventListener('click',deleteImage_f);
+// 등록된 이미지 삭제
+function deleteImage_f(e){
+  changeServerImg(null);
+  pic.src='/img/img_profile1.jpg';
+  var previewImage = document.querySelector(".preview");
+    previewImage.src = "location.replace(`/mypage/${dataset.petNum}/edit`);"; // 미리보기 이미지 초기화
+}
+
 
 /* 등록완료 */
 function modify() {

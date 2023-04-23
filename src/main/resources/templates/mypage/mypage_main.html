@@ -92,12 +92,12 @@
                 </div>
                 <img th:src="@{'/img/img_profile1.png'}" alt="" style="max-width: 100%; max-height: 100%; border-radius: 50%;"
                      th:unless="${imagedFiles != null }" />
-<!--                <li>-->
-<!--                  <div class="myprofile-list-text">-->
-<!--                    회원님을 알수있는 사진을 등록해주세요 <br/>-->
-<!--                    등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다-->
-<!--                  </div>-->
-<!--                </li>-->
+                <li th:unless="${imagedFiles != null }">
+                  <div class="myprofile-list-text">
+                    회원님을 알수있는 사진을 등록해주세요 <br/>
+                    등록된 사진은 회원님의 게시물이나 댓글들에 사용됩니다
+                  </div>
+                </li>
               </div>
             </div>
           </ul>
